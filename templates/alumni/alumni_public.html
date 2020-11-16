@@ -1,0 +1,71 @@
+
+{% extends 'layouts/base1.html'%}
+{%block content%}
+
+<style>
+.follower_instance:hover{
+background-color: antiquewhite;
+opacity:.6;
+}
+</style>
+
+<main role="main">
+    <div class="row">
+        <div class="col-11 mx-auto">
+            <div class="row">
+                <div class="col-12 col-sm-12 col-xs-12 col-md-6 mx-auto">
+                   
+                    <h4 class="alert alert-success">{{alumi_obi.user.first_name}} {{alumi_obi.user.last_name}}</h4>
+                    <img class="w-100 rounded" src="{{alumi_obi.picture.url}}" alt="">
+
+                    <p class="p-2 border shadow my-2">
+                        {{alumi_obi.about}}
+                    </p>
+
+                    <p class="p-2 border shadow my-2">
+                       Studies {{alumi_obi.field.course.name}}
+                    </p>
+
+
+                    <p class="p-2 border shadow my-2">
+                       Field of Specialty: {{alumi_obi.field.name}}
+                    </p>
+
+                    <p class="p-2 border shadow my-2">
+                        Phone Number : {{alumi_obi.field.phone}}
+                     </p>
+
+                     <button class="btn btn-info" style="background-color: blue;">Follow {{alumi_obi.user.last_name}}</button>
+                     <button class="btn btn-info" style="background-color: blue;">Message {{alumi_obi.user.last_name}}</button>
+                    
+
+                </div>
+            </div>
+        </div>
+    </div>
+</main><!-- /.container -->
+
+
+<script>
+    $(document).ready(function(){
+        $(".follower_instance").click(function(){
+            window.location.href="/alumni_dashboard/alumni_public/"+$(this).attr("id");
+        });
+       $(".follow").click(function(){
+            formid= "#"+$(this).attr("id")+"follow";
+            $.ajax({
+                url : $(formid).attr('action'),
+                type : $(formid).attr('method'),
+                data : $(formid).serialize(),
+                success : function(json){
+                    window.location.href=window.location.href;
+                },
+                error : function(xhr,errmsg,err) {
+                    alert("failed check error");
+                }
+	        });
+       });
+    });
+</script>
+{%endblock content%}
+

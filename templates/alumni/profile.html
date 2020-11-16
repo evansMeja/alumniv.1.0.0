@@ -1,0 +1,116 @@
+
+{% extends 'layouts/base1.html'%}
+{%block content%}
+
+<main role="main">
+    <div class="row">
+        <div class="col-11 mx-auto">
+            <div class="row">
+                <div class="col-12 col-sm-12 col-xs-12 col-md-6 mx-auto">
+                            
+                            <div class="row">
+                                <div class="col-8 mx-auto">
+                                    <h4 class="alert alert-info">Update Profile</h4>
+                                   
+                                    <form role="form" id="myform" action="{%url 'update_profile_api'%}" method="POST" enctype="multipart/form-data">
+                                        {%csrf_token%}
+                                        <div class="form-group">
+                                            <label for="first_name">First Name</label>
+                                            <input type="text" name="first_name" class="form-control" value="{{alumnae_obj.user.first_name}}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="last_name">Last Name</label>
+                                            <input type="text" name="last_name" class="form-control" value="{{alumnae_obj.user.last_name}}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="phone">Update Phone</label>
+                                            <input type="text" name="phone" class="form-control" value="{{alumnae_obj.phone}}">
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label for="about">Update About</label>
+                                            <textarea class="form-control" name="about" > {{alumnae_obj.about}}</textarea>
+                                        </div>
+
+                                        
+
+                                        <div class="form-group">
+                                            <label for="course">Select Course Name</label>
+                                            {%if courses_list%}
+                                                <select name="course" id="courses" class="form-control">
+                                                    {%for course in courses_list%}
+                                                    <option value="{{course.id}}">{{course.name}}</option>
+                                                    {%endfor%}
+                                                </select>
+                                             {%endif%}
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="fields">fields</label>
+                                                <select name="course" id="" class="form-control">
+                                                    <option value="---">-------</option>
+                                                </select>
+                                        </div>
+
+                                        <div>
+                                            <img class="w-100" src="{{alumnae_obj.picture.url}}" alt="">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="picture">picture</label>
+                                            <input class="form-control" type="file" name="picture">
+                                        </div>
+                                        
+                                    </form>
+                                    <button id="update" class="btn btn-primary px-5 py-2" style="background-color: blue;">Update Profile</button>
+                                </div>
+                            </div>
+                            <hr/>
+                </div>
+            </div>
+        </div>
+    </div>
+</main><!-- /.container -->
+
+
+<script>
+    $(document).ready(function(){
+        $("#courses").change(function(){
+            var course_id = $(this).val();
+            $.ajax({
+                url : "{%url 'fetch_fields_api'%}",
+                type : 'get',
+                data : {"course_id":course_id},
+                success : function(json){
+                    alert("msg from server")
+                },
+                error : function(xhr,errmsg,err) {
+                    alert("failed check error");
+                }
+	        });
+
+            // fetch fields
+        });
+
+       $("#update").click(function(){
+            formid= "#myform";
+            data = new FormData($('form').get(0));
+            $.ajax({
+                url : $(formid).attr('action'),
+                type : $(formid).attr('method'),
+                data : data,
+                cache:false,
+                processData:false,
+                contentType:false,
+                success : function(json){
+                    window.location.href = window.location.href;
+                },
+                error : function(xhr,errmsg,err) {
+                    alert("failed check error");
+                }
+	        });
+       });
+    });
+</script>
+{%endblock content%}
+

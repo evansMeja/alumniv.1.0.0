@@ -1,0 +1,57 @@
+
+{% extends 'layouts/base1.html'%}
+{%block content%}
+
+<main role="main">
+    <div class="row">
+        <div class="col-11 mx-auto">
+            <div class="row">
+                <div class="col-12 col-sm-12 col-xs-12 col-md-6 mx-auto">
+                   
+                    {%if alumni_list%}
+                        {%for alumni in alumni_list%}
+                            
+                            <div class="row">
+                                <div class="col-6">
+                                    <img src="/media/anony.jpg" alt="" style="border-radius: 30%;">
+                                </div>
+                                <form id="myform{{forloop.counter}}follow" action="{%url 'unfollow_api'%}" method="POST">
+                                    {%csrf_token%}
+                                    <input type="hidden" name='alumni' value="{{alumni.user.id}}">
+                                </form>
+                                <div class="col-6 py-5">
+                                    <button id="myform{{forloop.counter}}" class="btn btn-info py-2 px-5 follow" style="background-color: blue;">unfollow {{alumni.user.first_name}} {{alumni.user.last_name}}</button>
+                                </div>
+                            </div>
+                            <hr/>
+                        {%endfor%}
+                    {%else%}
+                    <div class="alert alert-warning">OOps You Following 0 Alumnies</div>
+                    <a href="{%url 'follow'%}">Meet new alumnis to follow</a>
+                    {%endif%}
+                </div>
+            </div>
+        </div>
+    </div>
+</main><!-- /.container -->
+
+
+<script>
+    $(document).ready(function(){
+       $(".follow").click(function(){
+            formid= "#"+$(this).attr("id")+"follow";
+            $.ajax({
+                url : $(formid).attr('action'),
+                type : $(formid).attr('method'),
+                data : $(formid).serialize(),
+                success : function(json){
+                    window.location.href=window.location.href;
+                },
+                error : function(xhr,errmsg,err) {
+                    alert("failed check error");
+                }
+	        });
+       });
+    });
+</script>
+{%endblock content%}

@@ -1,0 +1,49 @@
+
+{% extends 'layouts/base.html'%}
+{%block content%}
+<main role="main" class="container">
+    <h4 class="alert alert-info p-2 text-center">Delete Alumnis</h4>
+    <div class="row">
+        <div class="col-8 col-md-8 col-sm-8 col-md-8 mx-auto">
+            {%for alumni in alumni_list%}
+            <div class="row p-3 border shadow">
+                <div class="col-3">
+                    <img src="{{alumni.picture.url}}" alt="" class="w-100">
+                </div>
+                <div class="col-5">{{alumni.user.first_name}} {{alumni.user.last_name}}</div>
+
+                <form id="{{alumni.slug}}delete" action="{%url 'delete_alumni_api'%}" method="POST">
+                    {%csrf_token%}
+                    <input type="hidden" value="{{alumni.slug}}" name='slug'>
+                </form>
+
+                <div class="col-3">
+                    <button id="{{alumni.slug}}" class="btn btn-danger delete">Delete User</button>
+                </div>
+            </div>
+            {%endfor%}
+        </div> 
+    </div>
+</main>
+
+
+<script>
+    $(document).ready(function(){
+       $(".delete").click(function(){
+            formid= "#"+$(this).attr("id")+"delete";
+            $.ajax({
+                url : $(formid).attr('action'),
+                type : $(formid).attr('method'),
+                data : $(formid).serialize(),
+                success : function(json){
+                    window.location.href=window.location.href;
+                },
+                error : function(xhr,errmsg,err) {
+                    alert("failed check error");
+                }
+	        });
+       });
+    });
+</script>
+{%endblock content%}
+

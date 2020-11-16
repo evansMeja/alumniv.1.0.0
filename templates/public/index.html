@@ -1,0 +1,79 @@
+
+{% extends 'layouts/base.html'%}
+{%block content%}
+<div class="col-10 mx-auto">
+
+    <div class="row">
+
+        <div class="col-9">
+            <div class="alert alert-info text-center h3">Why us?</div>
+            <p class="lead p-2">
+                The term template, when used in the context of word processing software, refers to a 
+                sample document that has already some details in place; those can either by hand or 
+                through an automated iterative process, such as with a software assistant
+            </p>
+            <div class="alert alert-info text-center h4">Recent Blog Posts</div>
+            <div class="row">
+                {%for post in posts_list%}
+                    <div class="col-6 p-2 border shadow">
+                        
+                        <div><img class="w-100" height="200px" src="{{post.picture.url}}" alt=""></div>
+                        <div class="font-weight-bold text-center h4">{{post.title}}</div>
+                        <p class="lead p-2">{{post.content}}</p>
+                    </div>
+                {%endfor%}
+            </div>
+        </div>
+        
+        <div class="col-3">
+            <div class="alert alert-success h3">Upcoming Events</div>
+            <div class="row">
+                {%for event in events_list%}
+                    <div class="col-12 shadow border">
+                        <div>{{event.title}} to be held at {{event.venue}}</div>
+                    </div>
+                {%endfor%}
+                
+                <div class="col-12 shadow border">
+                    <div class="alert alert-success h4">Quick Links</div>
+                    <div class="p-3 border shadow"><a href="">Create Account</a></div>
+                    <div class="p-3 border shadow"><a href="">Login</a></div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="row bg-dark text-white">
+    <div class="col-8 mx-auto">
+        <div class="row">
+            <div class="col-4">
+                <ul style="list-style: none;">
+                    <li><a href="#">link</a></li>
+                    <li><a href="#">link</a></li>
+                    <li><a href="#">link</a></li>
+                    <li><a href="#">link</a></li>
+                </ul>
+            </div>
+            <div class="col-4">
+                <ul style="list-style: none;">
+                    <li><a href="#">link</a></li>
+                    <li><a href="#">link</a></li>
+                    <li><a href="#">link</a></li>
+                    <li><a href="#">link</a></li>
+                </ul>
+            </div>
+            <div class="col-4">
+                <ul style="list-style: none;">
+                    <li><a href="#">link</a></li>
+                    <li><a href="#">link</a></li>
+                    <li><a href="#">link</a></li>
+                    <li><a href="#">link</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{%endblock content%}
+

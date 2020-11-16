@@ -1,0 +1,65 @@
+
+{% extends 'layouts/base1.html'%}
+{%block content%}
+
+<style>
+.follower_instance:hover{
+background-color: antiquewhite;
+opacity:.6;
+}
+</style>
+
+<main role="main">
+    <div class="row">
+        <div class="col-11 mx-auto">
+            <div class="row">
+                <div class="col-12 col-sm-12 col-xs-12 col-md-6 mx-auto">
+                   
+                    {%if alumni_list%}
+                        {%for alumni in alumni_list%}
+                            
+                            <div id="{{alumni.slug}}" class="row follower_instance">
+                                <div class="col-6">
+                                    <img class="w-100" src="{{alumni.picture.url}}" alt="" style="border-radius: 30%;">
+                                </div>
+                                <form id="myform{{forloop.counter}}follow" action="{%url 'follow_api'%}" method="POST">
+                                    {%csrf_token%}
+                                    <input type="hidden" name='alumni' value="{{alumni.user.id}}">
+                                </form>
+                                <div class="col-6 py-5">
+                                    <button id="myform{{forloop.counter}}" class="btn btn-info py-2 px-5 follow" style="background-color: blue;">follow {{alumni.user.first_name}} {{alumni.user.last_name}}</button>
+                                </div>
+                            </div>
+                            <hr/>
+                        {%endfor%}
+                    {%endif%}
+                </div>
+            </div>
+        </div>
+    </div>
+</main><!-- /.container -->
+
+
+<script>
+    $(document).ready(function(){
+        $(".follower_instance").click(function(){
+            window.location.href="/alumni_dashboard/alumni_public/"+$(this).attr("id");
+        });
+       $(".follow").click(function(){
+            formid= "#"+$(this).attr("id")+"follow";
+            $.ajax({
+                url : $(formid).attr('action'),
+                type : $(formid).attr('method'),
+                data : $(formid).serialize(),
+                success : function(json){
+                    window.location.href=window.location.href;
+                },
+                error : function(xhr,errmsg,err) {
+                    alert("failed check error");
+                }
+	        });
+       });
+    });
+</script>
+{%endblock content%}
+

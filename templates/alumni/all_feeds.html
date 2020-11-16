@@ -1,0 +1,547 @@
+
+        {%extends 'layouts/base1.html'%}
+        {%load static%}
+        {%block content%}
+        
+        <div class="main-wrapper pt-80">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-3 order-2 order-lg-1">
+                        <aside class="widget-area">
+                            <!-- widget single item start -->
+                            <div class="card card-profile widget-item p-0">
+                                <div class="profile-banner">
+                                    <figure class="profile-banner-small">
+                                        <a href="profile.html">
+                                            <img src="{%static 'assets/images/banner-small.jpg'%}" alt="">
+                                        </a>
+                                        <a href="profile.html" class="profile-thumb-2">
+                                            <img src="{{alumni_obj.picture.url}}" alt="">
+                                        </a>
+                                    </figure>
+                                    <div class="profile-desc text-center">
+                                        <h6 class="author"><a href="profile.html">{{alumni_obj.user.first_name}} {{alumni_obj.user.last_name}}</a></h6>
+                                        <p>{{alumni_obj.about}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- widget single item start -->
+
+                            <!-- widget single item start -->
+                            <div class="card widget-item">
+                                <h4 class="widget-title">page you may like</h4>
+                                <div class="widget-body">
+                                    <ul class="like-page-list-wrapper">
+                                        <li class="unorder-list">
+                                            <!-- profile picture end -->
+                                            <div class="profile-thumb">
+                                                <a href="#">
+                                                    <figure class="profile-thumb-small">
+                                                        <img src="{%static 'assets/images/profile/profile-small-33.jpg'%}" alt="profile picture">
+                                                    </figure>
+                                                </a>
+                                            </div>
+                                            <!-- profile picture end -->
+
+                                            <div class="unorder-list-info">
+                                                <h3 class="list-title"><a href="#">Travel The World</a></h3>
+                                                <p class="list-subtitle"><a href="#">adventure</a></p>
+                                            </div>
+                                            <button class="like-button active">
+                                                <img class="heart" src="{%static 'assets/images/icons/heart.png'%}" alt="">
+                                                <img class="heart-color" src="{%static 'assets/images/icons/heart-color.png'%}" alt="">
+                                            </button>
+                                        </li>
+                                        <li class="unorder-list">
+                                            <!-- profile picture end -->
+                                            <div class="profile-thumb">
+                                                <a href="#">
+                                                    <figure class="profile-thumb-small">
+                                                        <img src="{%static 'assets/images/profile/profile-small-31.jpg'%}" alt="profile picture">
+                                                    </figure>
+                                                </a>
+                                            </div>
+                                            <!-- profile picture end -->
+
+                                            <div class="unorder-list-info">
+                                                <h3 class="list-title"><a href="#">Foodcort Nirala</a></h3>
+                                                <p class="list-subtitle"><a href="#">food</a></p>
+                                            </div>
+                                            <button class="like-button active">
+                                                <img class="heart" src="{%static 'assets/images/icons/heart.png'%}" alt="">
+                                                <img class="heart-color" src="{%static 'assets/images/icons/heart-color.png'%}" alt="">
+                                            </button>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <!-- widget single item end -->
+
+                            <!-- widget single item start -->
+                            <div class="card widget-item">
+                                <h4 class="widget-title">latest top news</h4>
+                                <div class="widget-body">
+                                    <ul class="like-page-list-wrapper">
+                                        <li class="unorder-list">
+                                            <!-- profile picture end -->
+                                            <div class="profile-thumb">
+                                                <a href="#">
+                                                    <figure class="profile-thumb-small">
+                                                        <img src="{%static 'assets/images/profile/profile-small-28.jpg'%}" alt="profile picture">
+                                                    </figure>
+                                                </a>
+                                            </div>
+                                            <!-- profile picture end -->
+
+                                            <div class="unorder-list-info">
+                                                <h3 class="list-title"><a href="#">Any one can join with us if you want</a></h3>
+                                                <p class="list-subtitle">2 min ago</p>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <!-- widget single item end -->
+                        </aside>
+                    </div>
+
+                    <div class="col-lg-6 order-1 order-lg-2">
+                        <!-- share box start -->
+                        <div class="card card-small">
+                            <div class="share-box-inner">
+                                <!-- profile picture end -->
+                                <div class="profile-thumb">
+                                    <a href="#">
+                                        <figure class="profile-thumb-middle">
+                                            <img src="{{alumni_obj.picture.url}}" alt="profile picture">
+                                        </figure>
+                                    </a>
+                                </div>
+                                <!-- profile picture end -->
+
+                                <!-- share content box start -->
+                                <div class="share-content-box w-100">
+                                    <form class="share-text-box">
+                                        <textarea name="share" class="share-text-field" aria-disabled="true" placeholder="Say Something" data-toggle="modal" data-target="#textbox" id="email"></textarea>
+                                        <button class="btn-share" type="submit">share</button>
+                                    </form>
+                                </div>
+                                <!-- share content box end -->
+
+                                <!-- Modal start -->
+                                <div class="modal fade" id="textbox" aria-labelledby="textbox">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">Share Your Mood</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <form action="{%url 'save_mood'%}" method="POST"  enctype="multipart/form-data">
+                                                {%csrf_token%}
+                                                <div class="modal-body custom-scroll">
+                                                    <div class="form-group">
+                                                        <textarea name="share" class="share-field-big custom-scroll form-control" placeholder="Say Something"></textarea>
+
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="file">Select a File(Optional)</label>
+                                                        <input type="file" class="form-control" name="file">
+                                                    </div>
+                                                   
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="post-share-btn" data-dismiss="modal">cancel</button>
+                                                    <button type="submit" class="post-share-btn">post</button>
+                                                </div>
+
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Modal end -->
+                            </div>
+                        </div>
+                        <!-- share box end -->
+
+
+
+                        {%for x in story_list%}
+                        <!-- post status start -->
+                        <div class="card">
+                            <!-- post title start -->
+                            <div class="post-title d-flex align-items-center">
+
+                                {%if x.info.picture_present%}
+                                <!-- profile picture end -->
+                                <div class="profile-thumb">
+                                    <a href="#">
+                                        <figure class="profile-thumb-middle">
+                                            <img src="{{x.info.story_file.url}}" alt="profile picture">
+                                        </figure>
+                                    </a>
+                                </div>
+                                <!-- profile picture end -->
+                                {%endif%}
+
+                                <div class="posted-author">
+                                    <h6 class="author"><a href="{%url 'user_profile' slug=x.info.user.id%}">{{x.info.user.first_name}} {{x.info.user.last_name}}</a></h6>
+                                    <span class="post-time">posted {{x.info.created_at | timesince}}  ago updated {{x.info.updated_at | timesince}}  ago</span>
+                                </div>
+
+                                <div class="post-settings-bar">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <div class="post-settings arrow-shape">
+                                        <ul>
+                                            <li><button>copy link to adda</button></li>
+                                            <li><button>edit post</button></li>
+                                            <li><button>embed adda</button></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- post title start -->
+                            <div class="post-content">
+                                <p class="post-desc">
+                                    {{x.content}}
+                                </p>
+                                <div class="post-thumb-gallery img-gallery">
+                                    <div class="row no-gutters">
+                                        <div class="col-11 mx-auto">
+                                            {%if x.info.picture_present%}
+                                            <figure class="post-thumb">
+                                                <a class="gallery-selector" href="{{x.info.story_file.url}}">
+                                                    <img src="{{x.info.story_file.url}}" alt="post image">
+                                                </a>
+                                            </figure>
+                                            {%endif%}
+                                            
+                                            {%if x.info.video_present%}
+                                            <figure class="post-thumb">
+                                                <a class="gallery-selector" href="{{x.info.story_file.url}}">
+                                                    <video controls><source src="{{x.info.story_file.url}}"></video>
+                                                </a>
+                                            </figure>
+                                            {%endif%}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="post-meta">
+
+                                    <form id="like{{x.info.id}}" action="{%url 'like_post'%}" method="POST">
+                                        {%csrf_token%}
+                                        <input type="hidden" name="post_id" value="{{x.info.id}}">
+                                    </form>
+                                    
+                                        {%if x.is_liking%}
+                                        <button id='{{x.info.id}}' class="post-meta-like like_post">
+                                        <i class="fa fa-hand-o-right" style="color: blue;">You and {{x.info.likes.count}} People Like this</i>
+                                        </button>
+                                        {%else%}
+                                    `   <button id='{{x.info.id}}' class="post-meta-like like_post">
+                                        <i class="fa fa-hand-o-left" style="color: red;">Like. {{x.info.likes.count}} People Like this</i>
+                                         </button>
+                                        {%endif%}
+                                   
+                                    <ul class="comment-share-meta">
+                                        <li>
+                                            <form id="comment{{x.info.id}}" action="{%url 'fetch_comments_endpoint'%}" method="POST">
+                                                {%csrf_token%}
+                                                <input type="hidden" name="post_id" value="{{x.info.id}}">
+                                            </form>
+
+                                            <button id='{{x.info.id}}' class="view_comments">
+                                                <i class="fa fa-comment"> show comments</i>
+                                                <span>41</span>
+                                            </button>
+                                        </li>
+                                        <li>
+                                            <form id="heart{{x.info.id}}" action="{%url 'heart_post'%}" method="POST">
+                                                {%csrf_token%}
+                                                <input type="hidden" name="post_id" value="{{x.info.id}}">
+                                            </form>
+
+                                            {%if x.is_hearting%}
+                                            <button id='{{x.info.id}}' class="heart_post" >
+                                                <i style="color: red;" class="fa fa-heart"></i>
+                                                <span>{{x.info.hearts.count}} hearts</span>
+                                            </button>
+                                            {%else%}
+                                            <button id='{{x.info.id}}' class="heart_post" >
+                                                <i style="color: yellow;" class="fa fa-heart"></i>
+                                                <span>{{x.info.hearts.count}} hearts</span>
+                                            </button>
+                                            {%endif%}
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                
+
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div id='commentsContainer{{x.info.id}}results' class="pl-1"></div>
+                                    </div>
+                                </div>
+
+                                
+                            </div>
+                        </div>
+                        <!-- post status end -->
+                        
+                    
+                    {%endfor%}
+
+                    </div>
+
+                    <div class="col-lg-3 order-3">
+                        <aside class="widget-area">
+                            <!-- widget single item start -->
+                            <div class="card widget-item">
+                                <h4 class="widget-title">Recent Notifications</h4>
+                                {%if notifications_list%}
+                                <div class="widget-body">
+                                    <ul class="like-page-list-wrapper">
+                                        {%for x in notifications_list%}
+                                        <li class="unorder-list">
+                                            <!-- profile picture end -->
+                                            <div class="profile-thumb">
+                                                <a href="#">
+                                                    <figure class="profile-thumb-small">
+                                                        <img src="{%static 'assets/images/profile-small-9.jpg'%}" alt="profile picture">
+                                                    </figure>
+                                                </a>
+                                            </div>
+                                            <!-- profile picture end -->
+
+                                            <div class="unorder-list-info">
+                                                <h3 class="list-title"><a href="#">{{x.message}}</a></h3>
+                                                <p class="list-subtitle">{{x.updated_at | timesince}} min ago</p>
+                                            </div>
+                                        </li>
+                                        {%endfor%}
+                                    </ul>
+                                </div>
+                                {%endif%}
+                            </div>
+                            <!-- widget single item end -->
+
+                            <!-- widget single item start -->
+                            <div class="card widget-item">
+                                <h4 class="widget-title">Advertizement</h4>
+                                <div class="widget-body">
+                                    <div class="add-thumb">
+                                        <a href="#">
+                                            <img src="{% static 'assets/images/advertise.jpg'%}" alt="advertisement">
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- widget single item end -->
+
+                            <!-- widget single item start -->
+                            <div class="card widget-item">
+                                <h4 class="widget-title">Friends Zone</h4>
+                                <div class="widget-body">
+                                    <ul class="like-page-list-wrapper">
+                                        {%for x in alumni_list%}
+                                        <li class="unorder-list">
+                                            <!-- profile picture end -->
+                                            <div class="profile-thumb">
+                                                <a href="#">
+                                                    <figure class="profile-thumb-small">
+                                                        <img src="{{x.picture.url}}" alt="profile picture">
+                                                    </figure>
+                                                </a>
+                                            </div>
+                                            <!-- profile picture end -->
+
+                                            <div class="unorder-list-info">
+                                                <h3 class="list-title"><a href="#">{{x.user.first_name}} {{x.user.last_name}}</a></h3>
+                                                <p class="list-subtitle"><a href="#">10 mutual</a></p>
+                                            </div>
+                                            <button class="like-button">
+                                                <img class="heart" src="{%static 'assets/images/icons/heart.png'%}" alt="">
+                                                <img class="heart-color" src="{%static 'assets/images/icons/heart-color.png'%}" alt="">
+                                            </button>
+                                        </li>
+                                        {%endfor%}
+                                    </ul>
+                                </div>
+                            </div>
+                            <!-- widget single item end -->
+                        </aside>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+        <script>
+            $(document).ready(function(){
+                jQuery.fn.clickToggle = function(a, b) {
+                return this.on("click", function(ev) { [b, a][this.$_io ^= 1].call(this, ev) })
+                };
+
+                $('.view_comments').clickToggle(function(ev) {
+                    $(this).html('<i class="fa fa-comment"> hide comments</i>'); 
+                    var commentId = $(this).attr("id");
+                    var formid="#comment"+commentId;
+                    var c_container = "commentsContainer"+commentId;
+                    $.ajax({
+                        url : $(formid).attr('action'),
+                        type : $(formid).attr('method'),
+                        data : $(formid).serialize(),
+                        success : function(json){
+                            renderComment(json,c_container,commentId);
+                        },
+                        error : function(xhr,errmsg,err) {
+                            alert("failed check error");
+                        }
+                    });
+                    
+                }, function(ev) {   
+                    $(this).html('<i class="fa fa-comment"> show comments</i>'); 
+                    var commentId = $(this).attr("id");
+                    var c_container = "commentsContainer"+commentId;
+                    $("#"+c_container+"results").html("");
+                });
+
+                
+
+                $('.heart_post').clickToggle(function(ev) {
+                    var formid= "#heart"+$(this).attr("id");
+                    var heart_loc = $(this);
+                    $.ajax({
+                        url : $(formid).attr('action'),
+                        type : $(formid).attr('method'),
+                        data : $(formid).serialize(),
+                        success : function(json){
+                             heart_loc.html('<i style="color: orange;" class="fa fa-heart"> '+json.hearts+' hearts</i>');
+                        },
+                        error : function(xhr,errmsg,err) {
+                            alert("failed check error");
+                        }
+                    });
+                    
+                }, function(ev) {
+                    var heart_loc = $(this);
+                    formid= "#heart"+$(this).attr("id");
+                    $.ajax({
+                        url : $(formid).attr('action'),
+                        type : $(formid).attr('method'),
+                        data : $(formid).serialize(),
+                        success : function(json){
+                             heart_loc.html('<i style="color: red;" class="fa fa-heart"> '+json.hearts+' hearts</i>');
+                        },
+                        error : function(xhr,errmsg,err) {
+                            alert("failed check error");
+                        }
+                    });
+                });
+
+
+                $('.like_post').clickToggle(function(ev) {
+                    ev.preventDefault();
+                    var like_loc = $(this);
+                    formid= "#like"+$(this).attr("id");
+                    $.ajax({
+                        url : $(formid).attr('action'),
+                        type : $(formid).attr('method'),
+                        data : $(formid).serialize(),
+                        success : function(json){
+                            if(json.is_liking){
+                                like_loc.html('<i style="color: blue;" class="fa fa-hand-o-right"> You and '+json.likes+' People Like this</i>');
+                            }else{
+                                like_loc.html('<i style="color: red;" class="fa fa-hand-o-left"> Like '+json.likes+' People Like this</i>');
+                            }     
+                        },
+                        error : function(xhr,errmsg,err) {
+                            alert('error');
+                        }
+                    });
+                    
+                }, function(ev) {
+                    ev.preventDefault();
+                    var like_loc = $(this);
+                    formid= "#like"+$(this).attr("id");
+                    $.ajax({
+                        url : $(formid).attr('action'),
+                        type : $(formid).attr('method'),
+                        data : $(formid).serialize(),
+                        success : function(json){
+                            if(json.is_liking){
+                                like_loc.html('<i style="color: blue;" class="fa fa-hand-o-right"> You and '+json.likes+' People Like this</i>');
+                            }else{
+                                like_loc.html('<i style="color: red;" class="fa fa-hand-o-left"> Like '+json.likes+' People Like this</i>');
+                            }     
+                        },
+                        error : function(xhr,errmsg,err) {
+                            alert("failed check error");
+                        }
+                    });
+                });
+
+
+
+
+            });
+
+            function renderComment(json,c_container,commentId){
+                $("#"+c_container+"results").html('');
+                finalString = '<div class"row bg-dark"><div class"col-12 p-1"><form action="{%url 'new_comment'%}" method="post" class="t">{%csrf_token%} <input value="'+commentId+'" type="hidden" name="post_id"><div class="form-group"><textarea name="comment" class="form-control" placeholder="type your comment"></textarea></div>';
+                finalString = finalString + '<div class="form-group"><button id="'+commentId+'" class="form-control btn btn-info comment_post" style="background:blue;">comment</button></form></div></div>';
+                $("#"+c_container+"results").append(finalString);
+
+                finalString = '';
+                for(var i =0;i<json.length;i++){
+                    str = '<div style="height: 50px;padding:20px;padding-top:2px;border-radius:10%;margin-bottom:10px;padding-left:5px;border:2px solid silver;" class"row xyz" ><div style="width:50%;float:left;padding:5px;" class"col-6 yyz">'+json[i].content+'</div><div style="width:50%;float:left;padding:5px;" class"col-6 yyz" class"col-6">'+json[i].created_at+'</div></div><div style="clear:both"></div>';
+                    finalString = finalString + str;
+                }
+                $("#"+c_container+"results").append(finalString);
+
+            }
+
+
+            $(document).on('click','.comment_post',function(e){
+                e.preventDefault();
+                var commentId = $(this).attr('id');
+                var formid= $(this).closest("form.t");
+                var c_container = "commentsContainer"+commentId;
+                $.ajax({
+                        url : $(formid).attr('action'),
+                        type : $(formid).attr('method'),
+                        data : $(formid).serialize(),
+                        success : function(json){
+                            if(json.length == 0){
+                                alert("0 comment found");
+                                $("#"+c_container).text("O Comments Found. Be the first to comment");
+                            }else{
+                                //alert("ready to lead comments");
+                                renderComment(json,c_container,commentId);
+                            }
+                        },
+                        error : function(xhr,errmsg,err) {
+                            alert("failed check error");
+                        }
+                    });
+            });
+
+
+        $( document ).ajaxStart(function() {
+            $( "body" ).css( "opacity" , ".9" );
+        });
+
+        $( document ).ajaxStop(function() {
+            $( "body" ).css( "opacity" , "1" );
+        });
+
+        </script>
+
+        {%endblock content%}
+    

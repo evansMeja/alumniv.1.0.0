@@ -1,0 +1,51 @@
+
+{% extends 'layouts/base.html'%}
+{%block content%}
+<main role="main" class="container">
+    <div class="starter-template">
+    <h1>Admin Dashboard</h1>
+    <form id="myform" action="{%url 'post_info_api'%}" method="POST"  enctype="multipart/form-data">
+        {%csrf_token%}
+        <div class="form-group">
+            <label for="title"> Title </label>
+            <input type="text" class="form-control" name="title">
+        </div>
+        <div class="form-group">
+            <label for="content">Body</label>
+            <textarea class="form-control" name="content"></textarea>
+        </div>
+        <div class="form-group">
+            <input class="form-control" type="file" name="picture">
+        </div>
+    </form>
+    <button class="btn btn-info post">Post Information</button>
+    </div>
+</main><!-- /.container -->
+
+
+
+<script>
+    $(document).ready(function(){
+       $(".post").click(function(){
+            formid= "#myform";
+            data = new FormData($('form').get(0));
+            $.ajax({
+                url : $(formid).attr('action'),
+                type : $(formid).attr('method'),
+                data : data,
+                cache:false,
+                processData:false,
+                contentType:false,
+                success : function(json){
+                    alert("success");
+                    window.location.href = window.location.href;
+                },
+                error : function(xhr,errmsg,err) {
+                    alert("failed check error");
+                }
+	        });
+       });
+    });
+</script>
+{%endblock content%}
+

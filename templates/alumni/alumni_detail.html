@@ -1,0 +1,73 @@
+
+{% extends 'layouts/base.html'%}
+{%block content%}
+
+<style>
+    .user1{
+        color: red;
+    }
+    .user2{
+        color: green;
+    }
+</style>
+
+<main role="main">
+    <div class="row">
+        <div class="col-11 mx-auto">
+            <div class="row">
+                <div class="col-12 col-sm-12 col-xs-12 col-md-6 mx-auto">
+                    <div class="text-center">Alumnis</div>
+                    <div id="new_story"></div>
+                    <form id="myform" action="{%url 'send_message'%}" id="myform" method="post">
+                        {%csrf_token%}
+                        <input type="hidden" value="{{alumnae_registration_obj.user.id}}" name="receiver">
+                        <input type="hidden" value="{{request.user.id}}" name="sender">
+                        <div class="form-group">
+                            <textarea name="content" class='form-control'></textarea>
+                        </div>
+                    </form>
+                    <div class="justify-content-center">
+                        <button id='send_msg' class="btn btn-info">Send Message</button>
+                    </div>
+                    <hr/>
+                    {%if messages_table_list%}
+                        {%for msg in messages_table_list%}
+                            <div class="py-3">
+                                <div style="float:left;"><small>{{msg.msg.sender}} </small></div>
+                                <div style="float:right;">  <small>{{msg.msg.created_at | timesince}} ago</small></div>
+                            </div>
+                            <div class="clearfix pt-3"></div>
+                            <div class="{{msg.type}} text-left">
+                                {{msg.msg.content}} sent by   on <small> </small>
+                            </div>
+                            
+                            <hr/>
+                        {%endfor%}
+                    {%endif%}
+                </div>
+            </div>
+        </div>
+    </div>
+</main><!-- /.container -->
+
+
+<script>
+    $(document).ready(function(){
+       $("#send_msg").click(function(){
+        formid= $("#myform");
+        $.ajax({
+		url : $(formid).attr('action'),
+		type : $(formid).attr('method'),
+		data : $(formid).serialize(),
+		success : function(json){
+          window.location.href=window.location.href
+		},
+		error : function(xhr,errmsg,err) {
+            alert("failed check error");
+		}
+	});
+       });
+    });
+</script>
+{%endblock content%}
+

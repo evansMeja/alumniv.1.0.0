@@ -1,0 +1,68 @@
+
+{% extends 'layouts/base.html'%}
+{%block content%}
+<main role="main" class="container">
+    <div class="col-6 mx-auto">
+        <h4 class="alert alert-info result">Register as Alumni</h4>
+        <form id="myform" method="post" action="/register_api">
+            {%csrf_token%}
+            <div class="form-group">
+                <label for="fname">First Name</label>
+                <input  type="text" name="fname" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="fname">Last Name</label>
+                <input type="text" name="lname" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="fname">Email</label>
+                <input type="text" name="email" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="fname">Password</label>
+                <input id="pass1" type="password" name="password" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="fname">Confirm Password</label>
+                <input id="pass2" type="password" name="confirm_password" class="form-control" required>
+            </div>
+        </form>
+
+        
+        <div class="form-group">
+            <button id="register" class="form-control btn btn-info">Register Now</button>
+        </div>
+    </div>
+</main><!-- /.container -->
+
+
+<script>
+    $(document).ready(function(){
+       $("#register").click(function(){
+        pass1 = $("#pass1").val();
+        pass2 = $("#pass2").val();
+        if(pass1 != pass2){
+            $(".result").text("Passwords Dont Match. Try Again!");
+            return false;
+        }
+        formid= $("#myform");
+        $.ajax({
+		url : $(formid).attr('action'),
+		type : $(formid).attr('method'),
+		data : $(formid).serialize(),
+		success : function(json){
+          if(json.exists){
+            $(".result").text("Failed, User exists. Try Again!");
+          }else{
+              window.location.href = json.redirect_link;
+          } 
+		},
+		error : function(xhr,errmsg,err) {
+            alert("failed check error");
+		}
+	});
+       });
+    });
+</script>
+{%endblock content%}
+

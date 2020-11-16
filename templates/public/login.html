@@ -1,0 +1,59 @@
+
+{% extends 'layouts/base.html'%}
+{%block content%}
+<main role="main" class="container">
+    <div class="col-6 mx-auto">
+        <h4 class="alert alert-info" id="result">Login</h4>
+        <form id="myform" method="post" action="{%url 'login_api'%}">
+            {%csrf_token%}
+            <div class="form-group">
+                <label for="fname">Email</label>
+                <input type="text" name="email" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="fname">Password</label>
+                <input type="text" name="password" class="form-control" required>
+            </div>
+        </form>
+
+        
+        <div class="form-group">
+            <button id="login" class="form-control btn btn-info">Login Now</button>
+        </div>
+    </div>
+</main><!-- /.container -->
+
+
+<script>
+
+    $(document).ajaxStart(function(){
+        $("#result").html("authenticating ..");
+    });
+
+    $(document).ready(function(){
+       $("#login").click(function(){
+        formid= $("#myform");
+        $.ajax({
+		url : $(formid).attr('action'),
+		type : $(formid).attr('method'),
+		data : $(formid).serialize(),
+		success : function(json){
+          if(json.user_exists){
+            $("#result").html("login success..redirecting");
+            setTimeout(function(){
+                window.location.href=json.redirect_link;
+            }, 500);
+                
+          }else{
+            $("#result").html("login failed");
+          }
+		},
+		error : function(xhr,errmsg,err) {
+            alert("failed check error");
+		}
+	});
+       });
+    });
+</script>
+{%endblock content%}
+

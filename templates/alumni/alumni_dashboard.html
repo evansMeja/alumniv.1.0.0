@@ -1,0 +1,97 @@
+
+{% extends 'layouts/base.html'%}
+{%block content%}
+<main role="main">
+    <div class="row">
+        <div class="col-11 mx-auto">
+            <div class="row">
+                <div class="col-12 col-sm-12 col-xs-12 col-md-3">
+                    <div class="text-center p-3 shadow bg-primary text-white rounded mb-2">Categories</div>
+                    
+                        <div class="p-3 border shadow"><a href="">News</a></div>
+                        <div class="p-3 border shadow"><a href="">Stories</a></div>
+                        <div class="p-3 border shadow"><a href="">Followers</a></div>
+                        <div class="p-3 border shadow"><a href="">Following</a></div>
+                        <div class="p-3 border shadow"><a href="">Messages</a></div>
+                        <div class="p-3 border shadow"><a href="">Notifications</a></div>
+                        <div class="p-3 border shadow"><a href="">Profile</a></div>
+                        <div>
+                            <img class="w-100 my-3" src="{{alumni_obj.picture.url}}" alt="">
+                        </div>
+                    
+                </div>
+                <div class="col-12 col-sm-12 col-xs-12 col-md-6">
+                    <div class="text-center p-3 shadow bg-primary text-white mb-2">Feeds</div>
+                    <div id="new_story"></div>
+                    <form id="myform" action="{%url 'post_story'%}" id="myform" method="post">
+                        {%csrf_token%}
+                        <div class="form-group">
+                            <textarea name="content" class='form-control' placeholder="share your story"></textarea>
+                        </div>
+                    </form>
+                    <div class="justify-content-center">
+                        <button id='post_story' class="btn btn-info form-control">Share Story</button>
+                    </div>
+                    <hr/>
+                    {%if story_list%}
+                        {%for story in story_list%}
+                        <div class="p-2 shadow border">
+                            <div class="py-3">
+                                <div style="float:left;"><small>{{story.user.first_name}} {{story.user.last_name}}</small></div>
+                                <div style="float:right;">  <small>posted on {{story.updated_at}}</small></div>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="py-2">{{story.content}}</div>
+                            <hr/>
+                        </div>
+                        {%endfor%}
+                    {%endif%}
+                </div>
+                <div class="col-12  col-sm-12 col-xs-12 col-md-3">
+                    <div class="text-center p-3 shadow bg-primary text-white rounded mb-2">Recent Chats</div>
+                    <div>
+                        <div class="text-center"><a href="{%url 'follow'%}">Meet With New Alumnis</a></div>
+                        
+                        {%if alumni_list%}
+                            {%for alumni in alumni_list%}
+                            <div class="row p-2 border shadow my-2">
+                                <div class="col-6">
+                                    <img class="rounded w-100" src="{{alumni.picture.url}}" alt="">
+                                </div>
+                                <div class="col-6 pt-1 pl-0">
+                                    <div  class="py-1 px-4 w-100">{{alumni.user.first_name}} {{alumni.user.last_name}}</div>
+                                    <a href="/alumni_dashboard/alumni/{{alumni.slug}}" class="btn btn-info py-1 px-4 w-100">Send Message </a>
+                                </div>
+                                <hr/>
+                            </div>
+                            {%endfor%}
+                        {%endif%}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main><!-- /.container -->
+
+
+<script>
+
+    $(document).ready(function(){
+       $("#post_story").click(function(){
+        formid= $("#myform");
+        $.ajax({
+		url : $(formid).attr('action'),
+		type : $(formid).attr('method'),
+		data : $(formid).serialize(),
+		success : function(json){
+            window.location.href = window.location.href;
+		},
+		error : function(xhr,errmsg,err) {
+            alert("failed check error");
+		}
+	});
+       });
+    });
+</script>
+{%endblock content%}
+
